@@ -1,3 +1,11 @@
+/*
+ * This program takes a URL as an input, extracts text
+ * in the body of the web page by ignoring all the HTML tags
+ * and JavaScript, and tags the string using Stanford tagger,
+ * and writes it to output.txt file
+ * @author Prapthi Hegde
+ * @date 2016-04-08 
+ */
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -7,12 +15,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import org.jsoup.Jsoup;
 import edu.stanford.nlp.tagger.maxent.MaxentTagger;
-/*
- * This program takes a URL as an input, extracts text
- * in the body of the web page by ignoring all the HTML tags
- * and JavaScript, and tags the string using Stanford tagger,
- * and writes it to output.txt file
- */
+
 public class PageTagger 
 {
 	private MaxentTagger tagger;
@@ -31,7 +34,7 @@ public class PageTagger
 	public String getText(URL url) 
 	{
 		/*
-		 * This method obtains text in the body of 
+		 * This method returns text in the body of 
 		 * the web page
 		 */
 		String urlString = "";
@@ -62,7 +65,8 @@ public class PageTagger
 		 */
 		URL url;
 		PageTagger tagger = new PageTagger();
-		PrintWriter writer = new PrintWriter("output.txt", "UTF-8");
+		final String output = "output.txt";
+		PrintWriter writer = new PrintWriter(output, "UTF-8");
 		
 		final int chunkSize = 1000;
 		for(int i=0;i<args.length;i++)
