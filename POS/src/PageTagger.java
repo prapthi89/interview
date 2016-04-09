@@ -15,6 +15,7 @@ public class PageTagger
 	{
 		tagger = new MaxentTagger("taggers/english-left3words-distsim.tagger");
 	}
+	//calls tagString method of MaxentTagger object
 	public String tagText(String in) 
 	{
 		return tagger.tagString(in);
@@ -50,16 +51,16 @@ public class PageTagger
 		PageTagger tagger = new PageTagger();
 		PrintWriter writer = new PrintWriter("output.txt", "UTF-8");
 		
+		final int chunkSize = 5000;
 		for(int i=0;i<args.length;i++)
 		{
 			url = new URL(args[i]);
 			writer.println("************** POS Tagged For "+url.getHost()+" *****************\n");
-			//text has the text of the url
-			String text = tagger.getText(url);
-			//splitting text in to chunks of size 1000, and tagging it using tagText
-			String[] textChunks = text.split(" ");
+			//"html_text" has the text part of the html
+			String html_text = tagger.getText(url);
+			//splitting text in to chunks of size 5000 words, and tagging it using tagText
+			String[] textChunks = html_text.split(" ");
 			long size = textChunks.length;
-			int chunkSize = 1000;
 			int j = 0;
 			while(j<size)
 			{
